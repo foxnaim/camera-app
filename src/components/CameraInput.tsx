@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 const ImageInput = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [_isIOS, setIsIOS] = useState(false);
 
-  // Проверка на iOS
-  useEffect(() => {
-    const userAgent = navigator.userAgent.toLowerCase();
-    if (/iphone|ipod|ipad/.test(userAgent)) {
-      setIsIOS(true);
-    }
-  }, []);
-
-  // Функция для обработки выбора файла
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+  // Функция для выбора изображения только из галереи
+  const pickImageFromGallery = async () => {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90, // Качество изображения
+        source: CameraSource.Photos, // Выбор только из галереи (не камера)
+        resultType: CameraResultType.DataUrl, // Получаем изображение в виде Data URL
+      });
+      setSelectedImage(image.webPath ?? null); // Устанавливаем выбранное изображение
+    } catch (error) {
+      console.error("Ошибка при выборе изображения", error);
     }
   };
 
@@ -28,7 +22,7 @@ const ImageInput = () => {
     <div style={{ textAlign: "center", padding: "20px" }}>
       {/* Кнопка для открытия галереи */}
       <button
-        onClick={() => document.getElementById("file-input")?.click()}
+        onClick={pickImageFromGallery}
         style={{
           padding: "10px 20px",
           backgroundColor: "#007bff",
@@ -38,19 +32,8 @@ const ImageInput = () => {
           cursor: "pointer",
         }}
       >
-        Выбрать изображение
+        Выбрать изображение из галереи
       </button>
-
-      {/* Скрытый инпут для выбора файла */}
-      <input
-        type="file"
-        id="file-input"
-        accept="image/*"
-        onChange={handleImageChange}
-        style={{
-          display: "none", // Скрыть инпут
-        }}
-      />
 
       {/* Если изображение выбрано, показываем его */}
       {selectedImage && (
