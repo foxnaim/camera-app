@@ -26,7 +26,6 @@ const ImageInput = () => {
         resultType: CameraResultType.Uri, // Возвращаем URI изображения
       });
 
-      // Здесь можно обработать полученное изображение
       console.log(image);
     } catch (error) {
       console.error("Ошибка при открытии галереи:", error);
@@ -35,7 +34,6 @@ const ImageInput = () => {
 
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
-      {/* Кнопка для открытия галереи */}
       <button
         onClick={openGallery}
         style={{
@@ -47,10 +45,9 @@ const ImageInput = () => {
           cursor: "pointer",
         }}
       >
-        Выбрать изображение из галереи
+        Выбрать изображение из галереи v4
       </button>
 
-      {/* Если изображение выбрано, показываем его */}
       {selectedImage && (
         <div style={{ marginTop: "20px" }}>
           <h2>Выбранное изображение</h2>
