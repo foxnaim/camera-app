@@ -2,19 +2,34 @@ import { useState } from "react";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 const ImageInput = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, _setSelectedImage] = useState<string | null>(null);
 
   // Функция для выбора изображения только из галереи
-  const pickImageFromGallery = async () => {
+  //   const pickImageFromGallery = async () => {
+  //     try {
+  //       const image = await Camera.getPhoto({
+  //         quality: 90, // Качество изображения
+  //         source: CameraSource.Photos, // Выбор только из галереи (не камера)
+  //         resultType: CameraResultType.DataUrl, // Получаем изображение в виде Data URL
+  //       });
+  //       setSelectedImage(image.webPath ?? null); // Устанавливаем выбранное изображение
+  //     } catch (error) {
+  //       console.error("Ошибка при выборе изображения", error);
+  //     }
+  //   };
+
+  const openGallery = async () => {
     try {
       const image = await Camera.getPhoto({
-        quality: 90, // Качество изображения
-        source: CameraSource.Photos, // Выбор только из галереи (не камера)
-        resultType: CameraResultType.DataUrl, // Получаем изображение в виде Data URL
+        quality: 90,
+        source: CameraSource.Photos, // Источник - галерея
+        resultType: CameraResultType.Uri, // Возвращаем URI изображения
       });
-      setSelectedImage(image.webPath ?? null); // Устанавливаем выбранное изображение
+
+      // Здесь можно обработать полученное изображение
+      console.log(image);
     } catch (error) {
-      console.error("Ошибка при выборе изображения", error);
+      console.error("Ошибка при открытии галереи:", error);
     }
   };
 
@@ -22,7 +37,7 @@ const ImageInput = () => {
     <div style={{ textAlign: "center", padding: "20px" }}>
       {/* Кнопка для открытия галереи */}
       <button
-        onClick={pickImageFromGallery}
+        onClick={openGallery}
         style={{
           padding: "10px 20px",
           backgroundColor: "#007bff",
