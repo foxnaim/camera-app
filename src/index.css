@@ -19,6 +19,11 @@ body {
   margin: 20px;
 }
 
+/* Скрыть кнопку "Сделать снимок" */
+input[type="file"]::-webkit-file-upload-button {
+  display: none;
+}
+
 button {
   padding: 10px 20px;
   margin-top: 10px;
