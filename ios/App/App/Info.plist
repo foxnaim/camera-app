@@ -3,9 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Мы хотим получить доступ к вашей фотогалерее для выбора изображений</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Мы хотим получить доступ к камере для съемки изображений</string>
+	<string>Разрешите доступ к фото для загрузки изображения</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
