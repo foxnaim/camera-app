@@ -1,9 +1,16 @@
-// src/components/ImageInput.tsx
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const ImageInput = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [_isIOS, setIsIOS] = useState(false);
+
+  // Проверка на iOS
+  useEffect(() => {
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (/iphone|ipod|ipad/.test(userAgent)) {
+      setIsIOS(true);
+    }
+  }, []);
 
   // Функция для обработки выбора файла
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +47,9 @@ const ImageInput = () => {
         id="file-input"
         accept="image/*"
         onChange={handleImageChange}
-        style={{ display: "none" }}
+        style={{
+          display: "none", // Скрыть инпут
+        }}
       />
 
       {/* Если изображение выбрано, показываем его */}
