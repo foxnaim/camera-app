@@ -3,7 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Разрешите доступ к фото для загрузки изображения</string>
+	<string>Требуется доступ к вашей галерее для загрузки изображений.</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
