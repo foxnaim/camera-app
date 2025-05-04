@@ -1,0 +1,37 @@
+PODS:
+  - Capacitor (7.2.0):
+    - CapacitorCordova
+  - CapacitorCommunityMedia (8.0.1):
+    - Capacitor
+    - SDWebImage
+  - CapacitorCordova (7.2.0)
+  - SDWebImage (5.21.0):
+    - SDWebImage/Core (= 5.21.0)
+  - SDWebImage/Core (5.21.0)
+
+DEPENDENCIES:
+  - "Capacitor (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorCommunityMedia (from `../../node_modules/@capacitor-community/media`)"
+  - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+
+SPEC REPOS:
+  trunk:
+    - SDWebImage
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorCommunityMedia:
+    :path: "../../node_modules/@capacitor-community/media"
+  CapacitorCordova:
+    :path: "../../node_modules/@capacitor/ios"
+
+SPEC CHECKSUMS:
+  Capacitor: 03bc7cbdde6a629a8b910a9d7d78c3cc7ed09ea7
+  CapacitorCommunityMedia: d1538b56a3303298e7cf45a18b11e624fbcbdc8e
+  CapacitorCordova: 5967b9ba03915ef1d585469d6e31f31dc49be96f
+  SDWebImage: f84b0feeb08d2d11e6a9b843cb06d75ebf5b8868
+
+PODFILE CHECKSUM: 5a0047155f36f991466280f8542e1cdb52d18020
+
+COCOAPODS: 1.16.2
