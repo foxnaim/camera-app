@@ -1,9 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Media } from "@capacitor-community/media";
 import { Capacitor } from "@capacitor/core";
-
-console.log("Capacitor version:", Capacitor.getPlatform());
-console.log("Media plugin available:", !!Media.pickImages);
 
 declare module "@capacitor-community/media" {
   export interface MediaPlugin {
@@ -14,7 +11,22 @@ declare module "@capacitor-community/media" {
 }
 
 const ImageInput = () => {
-  const [selectedImage, _setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [platform, setPlatform] = useState<string>("Unknown");
+  const [mediaAvailable, setMediaAvailable] = useState<boolean>(false);
+  const [isNative, setIsNative] = useState<boolean>(false);
+
+  useEffect(() => {
+    const currentPlatform = Capacitor.getPlatform();
+    setPlatform(currentPlatform);
+
+    const available =
+      currentPlatform !== "web" && typeof Media.pickImages === "function";
+    setMediaAvailable(available);
+
+    const native = Capacitor.isNativePlatform();
+    setIsNative(native);
+  }, []);
 
   const pickImageFromGallery = async () => {
     try {
@@ -22,6 +34,7 @@ const ImageInput = () => {
 
       if (result && result.photos.length > 0) {
         const photo = result.photos[0];
+        setSelectedImage(photo.path);
         console.log("Selected photo path:", photo.path);
       }
     } catch (error) {
@@ -31,8 +44,24 @@ const ImageInput = () => {
 
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
-      {/* Кнопка для открытия галереи */}
-      <button onClick={pickImageFromGallery}>Загрузить из галереи v7</button>
+      <div style={{ marginBottom: "20px" }}>
+        <p>
+          <strong>Платформа:</strong> {platform}
+        </p>
+        <p>
+          <strong>Media Plugin доступен:</strong>{" "}
+          {mediaAvailable ? "Да" : "Нет"}
+        </p>
+        <p>
+          <strong>isNativePlatform():</strong>{" "}
+          {isNative ? "Да (native)" : "Нет (web)"}
+        </p>
+      </div>
+
+      <button onClick={pickImageFromGallery}>Загрузить из галереи</button>
+      <div style={{ textAlign: "center", padding: "20px" }}>
+        <p>v9 | 04.05 | logs</p>
+      </div>
 
       {/* Если изображение выбрано, показываем его */}
       {selectedImage && (
